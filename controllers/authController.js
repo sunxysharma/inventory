@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config({path:'./config.env'})
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { promisify } = require('util');
@@ -71,7 +73,8 @@ const sendEmail = require('./../utils/email');
     // 1) Getting token and check if it's there
     let token;
     if ( // for jwt token (if it exists), header is always set to key : authorization and value begins with " Bearer" followed by token value
-        req.headers.authorization &&
+        req.headers.authorization
+        &&
         req.headers.authorization.startsWith('Bearer')
     ) //=> token exists
     {
@@ -79,7 +82,12 @@ const sendEmail = require('./../utils/email');
         // authorization: 'Bearer faihiuhjfdfailjfoeiiurncl' -> the portion after bearer is index 1 and is the token value
     // after split we get an array of bearer and 2nd as value, then we take the [1] index's value
     }
-    if (!token) {    // if no such token exists or if token has expired
+    
+    else if(req.cookies.jwt){
+        console.log(req.cookies.jwt);        
+        token = req.cookies.jwt;}
+    
+       if (!token) {    // if no such token exists or if token has expired
         return next(   // move to global error handling middleware
         new AppError('You are not logged in! Please log in to get access.', 401)
         // 401 means unauthorized
@@ -90,6 +98,7 @@ const sendEmail = require('./../utils/email');
     // using verify function (asynchronous) of jwt -> to read the payload of token and pass the secret to create the test signature
     // we make it return a promise and then await it
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    console.log("decoded= ",JSON.stringify(decoded))
     // verify function makes sure that id is correct nad no one altered it in the payload
 // decoded contains the decoded payload from jwt(JSONwebTOken)
     // 3) Check if user still exists
@@ -112,6 +121,8 @@ const sendEmail = require('./../utils/email');
 
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
+    res.locals.user = currentUser;
+    console.log("res.local.user = ",res.locals.user)
     next();
     });
 
@@ -128,43 +139,42 @@ const sendEmail = require('./../utils/email');
     };
     };
 
+    // exports.isLoggedIn = async (req, res, next) => {
+    //     if (req.cookies.jwt) {
+    //         try {
+    //         // 1) verify token
+    //         const decoded = await promisify(jwt.verify)(
+    //             req.cookies.jwt,
+    //             process.env.JWT_SECRET
+    //         );
+    //         // 2) Check if user still exists
+    //         const currentUser = await User.findById(decoded.id);
+    //         if (!currentUser) {
+    //             return next();
+    //         }
 
+    //         // 3) Check if user changed password after the token was issued
+    //         if (currentUser.changedPasswordAfter(decoded.iat)) {
+    //             return next();
+    //         }
+    //         // THERE IS A LOGGED IN USER
+    //         res.locals.user = currentUser;
+    //         return next();
+    //     } catch (err) {
+    //         return next();
+    //     }
+    //     }
+    //     next();
+    // };
 exports.logout = (req, res) => {
-    // Clear the JWT token stored on the client-side
-    res.clearCookie('jwt');
-    res.setHeader('Authorization', '');
-
-    // Clear JWT token from local storage or session storage
-    // localStorage.removeItem('jwt'); // or sessionStorage.removeItem('jwt');
-
-    // Optionally, redirect the user to a different page or display a confirmation message
-    res.status(200).json({ status: 'success', message: 'Logged out successfully' });
-};
-
-// Assuming this function is triggered when the user clicks the logout button
-const handleLogout = () => {
-    // Perform logout request to the server
-    // Example using fetch API
-    fetch('/logout', {
-        method: 'POST',
-        // Additional options like headers and body can be included if needed
-    })
-    .then(response => {
-        if (response.ok) {
-            // Clear JWT token from local storage or session storage
-            localStorage.removeItem('jwt'); // or sessionStorage.removeItem('jwt');
-            // Redirect to login page or perform other actions as needed
-            window.location.href = '/login';
-        } else {
-            // Handle logout error
-            console.error('Logout failed:', response.statusText);
-        }
-    })
-    .catch(error => {
-        // Handle fetch error
-        console.error('Fetch error:', error);
+    res.cookie('jwt','loggedOut',{
+        expires: new Date(Date.now() + 10 *60*60* 1000), //cookie expires in 10 sec
+        httpOnly: true
     });
-};
+    res.status(200).json({status: 'success'})
+
+}
+// Assuming this function is triggered when the user clicks the logout button
 
 
     // exports.forgotPassword = catchAsync(async (req, res, next) => {

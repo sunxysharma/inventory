@@ -7,8 +7,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-
-
+const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const orderRouter = require('./routes/orderRoutes')
 const productRouter = require('./routes/productRoutes')
 const userRouter = require('./routes/userRoutes')
@@ -36,7 +36,8 @@ const limiter = rateLimit({   // global middleware
     
     // Body parser, reading data from body into req.body
     app.use(express.json({ limit: '10kb' }));
-    
+    app.use(express.urlencoded({extended: true, limit:'10kb'}));
+    app.use(cookieParser());
     // Data sanitization against NoSQL query injection
     app.use(mongoSanitize());
     
@@ -65,6 +66,7 @@ const limiter = rateLimit({   // global middleware
 // Test middleware
 app.use((req,res,next) =>{
     req.requestTime = new Date().toISOString();
+    // console.log(req.cookies);
     next();
 });
 //middlewares for routes

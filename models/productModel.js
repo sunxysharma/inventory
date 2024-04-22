@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
         min:1,
         validate: {
             validator: function(v) {
-              return Number.isInteger(v) && v >= 0; // Check for integer and non-negative value
+              return Number.isInteger(v) && v > 0; // Check for integer and non-negative value
             },
             message: '{VALUE} is not a valid stock value. Please enter a positive integer.'
         }

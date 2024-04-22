@@ -100,52 +100,7 @@ exports.getAllProducts = catchAsync(async(req, res,next) =>{
     
     
 
-// exports.getProduct = catchAsync(async(req,res,next) =>{
-    
-//         console.log(req.query);
-//         console.log(req.method, req.url);
-//         // console.log(req)
-//     const product = await Product.findById(req.params.id);
-//     if(!product){
-//         return next(new AppError('no product found with that ID',404))
-//     }
-//     res.status(200).json({
-//         status: "success",
-//         data:{
-//             product
-//         }
-//     })
-// })
-// exports.getProductByIdOrBrandName = catchAsync(async (req, res, next) => {
-//     const { identifier } = req.params;
 
-//     let product;
-
-//     // Check if the identifier is a valid MongoDB ObjectID
-//     if (mongoose.Types.ObjectId.isValid(identifier)) {
-//         // If it's a valid ObjectID, fetch the product by ID
-//         product = await Product.findById(identifier);
-//     } else {
-//         // If it's not a valid ObjectID, assume it's a name or brand and fetch the product by name/brand
-//         product = await Product.findOne({
-//             $or: [
-//                 { product_name: { $regex: new RegExp(identifier, 'i') } }, // Match product_name
-//                 { brandName: { $regex: new RegExp(identifier, 'i') } }      // Match brandName (if applicable)
-//             ]
-//         });
-//     }
-
-//     if (!product) {
-//         return next(new AppError('No product found with the given ID, name, or brand', 404));
-//     }
-
-//     res.status(200).json({
-//         status: 'success',
-//         data: {
-//             product
-//         }
-//     });
-// });
 
 exports.createProduct = catchAsync(async (req,res,next)=>{
         
@@ -177,7 +132,7 @@ exports.addStock = catchAsync(async (req, res, next) => {
         if (!product) {
             return next(new AppError('No such product found in inventory', 404));
         }
-        console.log("product added to DB")
+        // console.log("product added to DB")
         res.status(200).json({
             status: "success",
             data: {
@@ -218,7 +173,7 @@ exports.subtractStock = catchAsync(async (req, res, next) => {
 
 exports.updateProduct = catchAsync(async (req,res,next)=>{
     // use patch methods
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.pbody, {
             new: true ,// returns the modified document rather than the original
             runValidators: true
         })
@@ -248,92 +203,3 @@ exports.deleteProduct =  catchAsync(async (req, res, next)=>{
     })
     
 
-exports.getProductStats = catchAsync(async (req, res, next) =>{
-    
-        const stats = await Product.aggregate([   // there ae many stages in aggregation pipeline and each stage has an object
-            {
-                $match: { ratingsAverage: { $gte: 4.3}}
-            },
-            {
-                $group: {  // group by
-                    _id: '$difficulty',
-                    numProducts: { $sum:1}, //for each document that goes thorugh this pipeline , 1 is added to the sum , hence it counts the total documents
-                    numRatings: { $sum: '$ratingsQuantity'},
-                    avgRating: { $avg: '$ratingsAverage' },
-                    avgPrice: {$avg: '$price'},
-                    minPrice: {$min : '$price'},
-                    maxPrice: {$max : '$price'}
-                }
-            },
-            {
-                $sort: {// you have to sort acc to the names u specified in the group stage
-                    avgPrice: 1 //ascending,
-                }
-            }
-            // },
-            // {
-            //     $match: { _id: {$ne: 'easy'}// u can repeat stages
-            // }
-            
-            // }
-        ])
-        res.status(200).json({
-            status: "success",
-            data:{
-                stats
-            }
-        })
-    })
-
-    exports.getMonthlyPlan = catchAsync(async (req, res, next) =>{
-
-    const year = req.params.year*1;
-    const plan = await Product.aggregate([
-{
-    $unwind: '$startDates'
-},
-{
-    $match:{
-        startDates: {//Date(year,month,date)
-            $gte: new Date(`${year}-01-01`),
-            $lte: new Date(`${year+1}-12-31`)
-        }
-    }
-}
-,
-{
-    $group:{
-    _id: { $month: '$startDates'}, // apply month on startDates-> to get month from startDates
-    numProductStart :{
-        $sum:1},
-        products:{
-            $push : '$name'
-        }
-    },
-    
-},
-{
-    $addFields:{ month: '$_id'} // we want to add month field which takes the value of _id
-
-},
-{
-    $project:{
-        _id:0  // makes visibilty of this field to false
-    }
-},
-{ 
-    $sort:{
-        numProductStart:-1
-    }
-},
-{
-    $limit: 12  // limits the no. of documents to be returned
-}
-    ])
-    res.status(200).json({
-            status: "success",
-            data:{
-                plan
-            }
-        })
-})
