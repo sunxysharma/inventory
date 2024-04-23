@@ -80,6 +80,11 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
         select: false
+    },
+
+    warehouseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Warehouse'
     }
     });
 

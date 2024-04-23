@@ -23,35 +23,15 @@ const partnerSchema = new mongoose.Schema({
         required:  [true, "Please provide partner's phone number!"],
         validate: phoneNumberValidator // Apply custom validator
     },
-    partnerAddress: {
-        street: {
-        type: String,
-        //   required: true
-        },
-        city: {
-        type: String,
-        //   required: true
-        },
-        state: {
-        type: String,
-        //   required: true
-        },
-        postalCode: {
-        type: String,
-        //   required: true
-        },
-        country: {
-        type: String,
-        default: "India"
-        //   required: true
-        }
-    },
 
     role: {
         type: String,
         enum: ['Supplier', 'Distributor'],
     },
-    
+    brandId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Brand'
+    }]
     });
 
     const Partner = mongoose.model('Partner', partnerSchema);

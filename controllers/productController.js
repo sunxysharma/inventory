@@ -38,7 +38,7 @@ exports.getAllProducts = catchAsync(async(req, res,next) =>{
     
 
         // EXECUTE QUERY
-        const features = new APIFeatures(Product.find(), req.query)
+        const features = new APIFeatures(Product.find().populate('brandId','warehouseId','orderId'), req.query)
         .filter()
         .sort()
         .limitFields()
@@ -64,7 +64,7 @@ exports.getAllProducts = catchAsync(async(req, res,next) =>{
         // Check if the identifier is a valid MongoDB ObjectID
         if (mongoose.Types.ObjectId.isValid(identifier)) {
             // If it's a valid ObjectID, fetch the product by ID
-            const productById = await Product.findById(identifier);
+            const productById = await Product.findById(identifier).populate('brandId','warehouseId','orderId');
             if (productById) {
                 // If a product is found by ID, return it
                 return res.status(200).json({
@@ -83,7 +83,7 @@ exports.getAllProducts = catchAsync(async(req, res,next) =>{
                 { product_name: { $regex: new RegExp(identifier, 'i') } }, // Match product_name
                 { brandName: { $regex: new RegExp(identifier, 'i') } }      // Match brandName (if applicable)
             ]
-        });
+        }).populate('brandId','warehouseId','orderId');
     
         if (!products || products.length === 0) {
             return next(new AppError('No products found with the given ID, name, or brand', 404));

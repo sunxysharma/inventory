@@ -6,7 +6,7 @@ exports.getAllOrders = async(req, res) =>  {
     try{
 
         // EXECUTE QUERY
-        const features = new APIFeatures(Order.find(), req.query)
+        const features = new APIFeatures(Order.find().populate('partner_Id'), req.query)
         .filter()
         .sort()
         .limitFields()
@@ -36,7 +36,7 @@ exports.getOrder = async (req,res) =>{
         console.log(req.query);
         console.log(req.method, req.url);
         // console.log(req)
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id).populate('partner_Id');
     res.status(200).json({
         status: "success",
         data:{

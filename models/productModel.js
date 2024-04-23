@@ -46,24 +46,34 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Electronics', 'Clothing', 'Hardware', 'Food','Stationery','Healthcare','Cosmetics','Furniture','Crockery','Home Furnishing'],
+        enum: ['Electronics', 'Clothing', 'Hardware', 'Stationery','Healthcare','Cosmetics','Furniture','Crockery','Home Furnishing'],
         
     },
-    brandName:{
-        type:String,
-        required: [true, 'A product must have a brand']
+    productStatus: {
+        type: String,
+        enum: ['InStock', 'OutOfStock']
+        
     },
-    // suuplierID
+    // brandName:{
+    //     type:String,
+    //     required: [true, 'A product must have a brand']
+    // },
+    // suplierID
     manufacturing_Date: Date,
-    expiration_Date:  {
-        type: Date,
-        validate: {
-            validator:function(val){
-            return val > this.manufacturing_Date;
-        },
-        message: 'Expiration Date{VALUE} should be greater than the manufacturing date'
-    } },
+
     // Continue with the save operation
+    brandId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Brand'
+    },
+    warehouseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Warehouse'
+    },
+    orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }
 })
 
 
