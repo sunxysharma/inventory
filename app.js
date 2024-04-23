@@ -48,13 +48,8 @@ const limiter = rateLimit({   // global middleware
     app.use(
         hpp({
         whitelist: [   // avoid using hpp for the following fields
-        // like duration=5&duration=9 should work
-            'duration',
-            'ratingsQuantity',
-            'ratingsAverage',
-            'maxGroupSize',
-            'difficulty',
-            'price'
+        // like price=5&price=9 should work
+            'price','category','Stock'
         ]
         })
     );
