@@ -6,7 +6,7 @@ const { promisify } = require('util');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-const sendEmail = require('./../utils/email');
+// const sendEmail = require('./../utils/email');
 
     const signToken = id => { //atleast 32 bit long JWT_SECRET is required for best encryption of signature
     return jwt.sign({ id }, process.env.JWT_SECRET, {

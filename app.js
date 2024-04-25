@@ -24,7 +24,8 @@ app.use(helmet());
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-
+app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs');
 app.use(express.json())
 // Limit requests from same API
 const limiter = rateLimit({   // global middleware
@@ -65,6 +66,7 @@ app.use((req,res,next) =>{
     next();
 });
 //middlewares for routes
+
 app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/users', userRouter)

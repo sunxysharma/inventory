@@ -5,7 +5,7 @@
     "quantityPerPack": 100,
     "measuringUnit": "L",
     "description": "lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis",
-    "category": "electronics",
+    "category": "Electronics",
     "brandName": "Devify",
     "manufacturing_date": "2024-08-05",
     "expiration_date": "2025-10-10"
@@ -16,7 +16,7 @@
     "quantityPerPack": 42,
     "measuringUnit": "kg",
     "description": "vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin",
-    "category": "stationery",
+    "category": "Stationery",
     "brandName": "Linkbridge",
     "manufacturing_date": "2024-08-25",
     "expiration_date": "2025-05-27"
@@ -27,7 +27,7 @@
     "quantityPerPack": 67,
     "measuringUnit": "kg",
     "description": "vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat",
-    "category": "food",
+    "category": "Clothing",
     "brandName": "Bluezoom",
     "manufacturing_date": "2025-06-29",
     "expiration_date": "2024-08-22"
@@ -38,7 +38,7 @@
     "quantityPerPack": 37,
     "measuringUnit": "kg",
     "description": "donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium",
-    "category": "electronics",
+    "category": "Electronics",
     "brandName": "Feedfish",
     "manufacturing_date": "2025-11-13",
     "expiration_date": "2025-07-13"
@@ -49,7 +49,7 @@
     "quantityPerPack": 4,
     "measuringUnit": "L",
     "description": "ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis",
-    "category": "hardware",
+    "category": "Hardware",
     "brandName": "Lazz",
     "manufacturing_date": "2025-07-03",
     "expiration_date": "2025-06-19"
@@ -60,7 +60,7 @@
     "quantityPerPack": 86,
     "measuringUnit": "L",
     "description": "posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat",
-    "category": "food",
+    "category": "Clothing",
     "brandName": "Wordtune",
     "manufacturing_date": "2025-02-09",
     "expiration_date": "2024-05-18"
@@ -71,7 +71,7 @@
     "quantityPerPack": 63,
     "measuringUnit": "kg",
     "description": "sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam",
-    "category": "healthcare",
+    "category": "Healthcare",
     "brandName": "Yodo",
     "manufacturing_date": "2024-04-16",
     "expiration_date": "2025-08-07"

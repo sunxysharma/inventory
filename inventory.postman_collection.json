@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "49e4b314-5418-45af-8738-9f490a726d63",
+		"name": "inventory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2835384"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"test\",\r\n    \"email\":\"test@gmail.com\",\r\n    \"password\":\"test1234\",\r\n    \"passwordConfirm\":\"test1234\",\r\n    \"role\":\"Warehouse Manager\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"\",\r\n    \"password\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MjlmMWI0ZDdkNzU3NDEzZmQ1ZWZlMCIsImlhdCI6MTcxNDAyNTE5NywiZXhwIjoxNzE0MDI4Nzk3fQ.OYvOIeusxWxiHf363C3H3prdu1tzh9I7oQjmDEXrh1w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/products/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get product by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MjlmMWI0ZDdkNzU3NDEzZmQ1ZWZlMCIsImlhdCI6MTcxNDAyNTE5NywiZXhwIjoxNzE0MDI4Nzk3fQ.OYvOIeusxWxiHf363C3H3prdu1tzh9I7oQjmDEXrh1w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/products/6629f3b124e5e2dccc6ec667",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"6629f3b124e5e2dccc6ec667"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
