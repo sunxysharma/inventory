@@ -26,9 +26,10 @@ router
     authController.restrictTo('Order Fulfillment Specialist'),
     productController.deleteProduct);
 
+//  authController.protect  
 router
 .route('/')
-.get(authController.protect,productController.getAllProducts)
+.get(productController.getAllProducts)
 .post(productController.createProduct);
 
 module.exports = router;

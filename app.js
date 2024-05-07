@@ -14,6 +14,7 @@ const productRouter = require('./routes/productRoutes')
 const userRouter = require('./routes/userRoutes')
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+var cors = require('cors')
 
 
 // 1) GLOBAL MIDDLEWARES
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
 app.use(express.json())
+app.use(cors())
 // Limit requests from same API
 const limiter = rateLimit({   // global middleware
     max: 100000,
